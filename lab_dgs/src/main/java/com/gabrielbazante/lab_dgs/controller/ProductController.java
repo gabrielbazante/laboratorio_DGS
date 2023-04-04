@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gabrielbazante.lab_dgs.exceptions.ErrorDetails;
 import com.gabrielbazante.lab_dgs.exceptions.InvalidRequestException;
 import com.gabrielbazante.lab_dgs.exceptions.ProductNotFoundException;
 import com.gabrielbazante.lab_dgs.model.Product;
 import com.gabrielbazante.lab_dgs.repository.ProductRepository;
+
+
 
 @RestController
 public class ProductController {
@@ -73,13 +74,4 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler({ProductNotFoundException.class, InvalidRequestException.class})
-    public ResponseEntity<ErrorDetails> handleException(Exception ex) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        if (ex instanceof InvalidRequestException) {
-            status = HttpStatus.BAD_REQUEST;
-        }
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), ex.getClass().getSimpleName());
-        return new ResponseEntity<>(errorDetails, status);
-    }
 }

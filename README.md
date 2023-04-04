@@ -21,4 +21,4 @@
 - [ ] 10. Usar o Spring Integration para implementar a mensageria entre dois serviços, usando um message broker como o RabbitMQ ou Kafka.❌
 
 
-##### Alguns itens ainda estou estudando para completar.
+* ###### Alguns itens ainda estou estudando para completar.

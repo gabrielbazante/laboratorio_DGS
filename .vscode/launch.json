@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LabDgsApplication<lab_dgs>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gabrielbazante.lab_dgs.LabDgsApplication",
+            "projectName": "lab_dgs",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

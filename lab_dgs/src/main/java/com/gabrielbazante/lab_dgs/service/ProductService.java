@@ -3,6 +3,9 @@ package com.gabrielbazante.lab_dgs.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.tomcat.util.bcel.classfile.JavaClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,14 +25,18 @@ public class ProductService {
  
     @Autowired
     private ProductRepository productRepository;
+
+    private final Logger logger = LoggerFactory.getLogger(JavaClass.class);
  
     @Cacheable
     public List<Product> getAllProducts() {
+        logger.info("Getting all products.");
         return productRepository.findAll();
     }
  
     @Cacheable(key = "#id", unless = "#result == null")
     public Product getProductById(Long id) {
+        logger.info("Getting product with id {}.", id);
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             return optionalProduct.get();
@@ -39,11 +46,13 @@ public class ProductService {
  
     @CachePut(key = "#product.id")
     public Product saveProduct(Product product) {
+        logger.info("Saving product with id {}.", product.getId());
         return productRepository.save(product);
     }
  
     @CacheEvict(key = "#id")
     public void deleteProduct(Long id) {
+        logger.info("Deleting product with id {}.", id);
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             productRepository.deleteById(id);
@@ -53,6 +62,7 @@ public class ProductService {
 
     @CachePut(key = "#product.id")
     public Product updateProduct(long l, Product product) {
+        logger.info("Updating product with id {}.", product.getId());
         Optional<Product> optionalProduct = productRepository.findById(product.getId());
         if (optionalProduct.isPresent()) {
             Product productFromDb = optionalProduct.get();

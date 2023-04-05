@@ -21,11 +21,13 @@ public class DataInitializer implements CommandLineRunner{
         Product product2 = new Product("Calça Jeans", 79.90);
         Product product3 = new Product("Tênis", 99.90);
         Product product4 = new Product("Bermuda", 49.90);
+        Product product5 = new Product("Bermuda Azul", 149.90);
 
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
         productRepository.save(product4);
+        productRepository.save(product5);
     }
 
     

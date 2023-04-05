@@ -44,7 +44,23 @@ public class ProductService {
  
     @CacheEvict(key = "#id")
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            productRepository.deleteById(id);
+        }
+        throw new ProductNotFoundException("Product not found with id " + id);
+    }
+
+    @CachePut(key = "#product.id")
+    public Product updateProduct(long l, Product product) {
+        Optional<Product> optionalProduct = productRepository.findById(product.getId());
+        if (optionalProduct.isPresent()) {
+            Product productFromDb = optionalProduct.get();
+            productFromDb.setName(product.getName());
+            productFromDb.setPrice(product.getPrice());
+            return productRepository.save(productFromDb);
+        }
+        throw new ProductNotFoundException("Product not found with id " + product.getId());
     }
 
     

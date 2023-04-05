@@ -1,5 +1,6 @@
 package com.gabrielbazante.lab_dgs.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
